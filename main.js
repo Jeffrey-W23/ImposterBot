@@ -1,4 +1,7 @@
 //
+require('dotenv').config();
+
+//
 const Discord = require('discord.js');
 
 //
@@ -61,14 +64,14 @@ client.on('message', (message) => {
     }
 
     //
-    else if (command === 'am-invite'){
+    else if (command === 'among-invite'){
 
         if(message.member.roles.cache.some(r => r.name === "Moderator"))
-            client.commands.get('am-invite').execute(message, args);
+            client.commands.get('among-invite').execute(message, args);
         else
             message.channel.send(`${message.member} You don't have permission to use that command?`);
     }
 });
 
 // Must be last line of code. Login into discord bot.
-client.login('NzU2ODc1NDUzMDAzODU3OTMw.X2YNMg.nnxPRJ3Jezrxw9XXUEboHcS7JTs');
+client.login(process.env.BOT_TOKEN);
