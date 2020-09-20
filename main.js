@@ -47,6 +47,7 @@ client.on('message', (message) => {
         
         //
         client.commands.get('hello').execute(message, args);
+        console.log('hello command activated!')
     }
 
     //
@@ -54,6 +55,7 @@ client.on('message', (message) => {
         
         //
         client.commands.get('suspect').execute(message, args);
+        console.log('suspect command activated!')
     }
 
     //
@@ -61,10 +63,13 @@ client.on('message', (message) => {
         
         //
         client.commands.get('emergency').execute(message, args);
+        console.log('emergency command activated!')
     }
 
     //
     else if (command === 'among-invite'){
+
+        console.log('among-invite command activated!')
 
         if(message.member.roles.cache.some(r => r.name === "Moderator"))
             client.commands.get('among-invite').execute(message, args);
