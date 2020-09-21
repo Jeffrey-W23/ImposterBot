@@ -54,6 +54,11 @@ m_oClient.aoCommands = new m_oDiscord.Collection();
 
 // const aaray of files for storing command files
 const m_afCommandFiles = m_oFS.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+
+// member vars for voice states
+let m_chNewVoiceUser;
+let m_chOldVoiceUser;
+
 //--------------------------------------------------------------------------------------
 
 // loop through files in the command files array
@@ -69,9 +74,24 @@ for (const fFile of m_afCommandFiles)
 // if the bot is ready console log that it is online
 m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
 
-// Turn on the bot
+// get voice state chanages 
+m_oClient.on('voiceStateUpdate', (oOldMember, oNewMember) => 
+{  
+    // send to console that the voice state has changed
+    console.log(`Voice state change dectected!`);
+    
+    // set member vars to voice states
+    m_chOldVoiceUser = oOldMember;
+    m_chNewVoiceUser = oNewMember;
+
+    // send old and new channel ids to the console
+    console.log(`Old Channel ${oOldMember.channelID}`);
+    console.log(`New Channel ${oNewMember.channelID}`);
+})
+
+// Get command inputs
 m_oClient.on('message', (oMessage) => 
-{    
+{
     // Check if the prefix is used
     if (!oMessage.content.startsWith(m_chPrefix) || oMessage.author.bot) 
         return;
@@ -81,12 +101,12 @@ m_oClient.on('message', (oMessage) =>
 
     // const char for command input
     const chCommand = chArgs.shift().toLowerCase();
-    
+
     // try and send a command
     try
     {
         // Send command to command file and log command activation in the console
-        m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
+        m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs, m_chNewVoiceUser, m_chOldVoiceUser);
         console.log(`${chCommand} command activated!`);
     }
 

@@ -24,8 +24,8 @@
 
 // INFORMATION //
 //--------------------------------------------------------------------------------------
-// Purpose: Send a private message to all members of a voice channel, mostly used for 
-// Among Us invite codes.
+// Purpose: Send a private message to the new member of the voice channel, mostly used 
+// for Among Us invite codes.
 //
 // Author: Thomas Wiltshire
 //--------------------------------------------------------------------------------------
@@ -33,8 +33,8 @@
 module.exports = {
     
     // set name and desciption of command
-    name: 'invite',
-    description: "Send a private message to all members of a voice channel, mostly used for Among Us invite codes.",
+    name: 'new-join',
+    description: "Send a private message to the new member of the voice channel, mostly used for Among Us invite codes.",
     
     // Execute the command
     execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
@@ -54,45 +54,32 @@ module.exports = {
 
                 // new vars for the author object and its current voice channel
                 let oAuthorChannel = oMessage.member.voice.channelID;
-                let oAuthor = oMessage.member;
-
-                // Get all voice channel in the server
-                const aoAllVoiceChannels = oMessage.guild.channels.cache.filter(c => c.type === 'voice');
                 
                 // check if the author has a valid channel id and invite code, if not send an error message
                 if (oMessage.member.voice.channelID && chrInviteCode.length <= 0)
-                    oMessage.channel.send(`${oMessage.member} That's an incorrect command input? An invite code is required for the invite command.`); 
+                    oMessage.channel.send(`${oMessage.member} That's an incorrect command input? An invite code is required for the new-join command.`); 
                 
-                // Loop through each voice channel in the server
-                aoAllVoiceChannels.forEach(c => 
+                // check invite code length
+                if (chrInviteCode.length > 0) 
                 {
-                    // check if voice channel id matches author channel
-                    if (c.id === oAuthorChannel) 
+                    // if the new user is valid and matches the author channel
+                    if (chNewUsrChannel && chNewUsrChannel.channelID === oAuthorChannel) 
                     {
-                        // Loop through each member in the authors voice channel
-                        c.members.forEach((oMember) => 
-                        {
-                            // check invite code length
-                            if (chrInviteCode.length > 0) 
-                            {
-                                // if the channel members id matches the author
-                                if (oMember.id != oAuthor.id) 
-                                {
-                                    // send a private message of the invite code to the channel member, put a confirmation in text channel
-                                    oMember.send(chrInviteCode.join(' '));
-                                    oMessage.channel.send(`Invite code sent successfully! ${oMember}`);
-                                }
+                        // send a private message of the invite code to the channel member, put a confirmation in text channel
+                        chNewUsrChannel.member.send(chrInviteCode.join(' '));
+                        oMessage.channel.send(`Invite code sent successfully! ${chNewUsrChannel.member}`);
 
-                                // if the member is the author
-                                else 
-                                {
-                                    // put a confirmation in text channel
-                                    oMessage.channel.send(`${oMember} has created an invite code!`);
-                                }
-                            }
-                        });
+                        // put a confirmation in text channel
+                        oMessage.channel.send(`${oMessage.member} has sent a new member an invite code!`);
                     }
-                }); 
+
+                    // else if the new user isnt valid or no new user
+                    else
+                    {
+                        // send an error message when no new member can be detected
+                        oMessage.channel.send(`${oMessage.member} No new member detected? Get them to join the voice channel!`);
+                    }
+                }
             }
         }
 
