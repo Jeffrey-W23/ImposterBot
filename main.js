@@ -91,13 +91,17 @@ m_oClient.on('message', (oMessage) =>
     //
     try
     {
+        //
         m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
         console.log(`${chCommand} command activated!`);
     }
 
+    //
     catch
     {
-        console.log(`${chCommand} command activated!`);
+        //
+        message.channel.send(`Invalid command!`);
+        console.log(`${chCommand}: An invalid command input!`);
     }
 
 
