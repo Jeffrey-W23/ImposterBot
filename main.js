@@ -44,7 +44,7 @@ const m_oDiscord = require('discord.js');
 const m_oClient = new m_oDiscord.Client();
 
 // const char for command prefix
-const m_chPrefix = '!';
+const m_chPrefix = '?';
 
 // const for the file system object
 const m_oFS = require('fs');
@@ -66,20 +66,20 @@ for (const fFile of m_afCommandFiles)
     m_oClient.aoCommands.set(fCommand.name, fCommand);
 }
 
-//
+// if the bot is ready console log that it is online
 m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
 
-//
+// Turn on the bot
 m_oClient.on('message', (oMessage) => 
 {    
-    //
+    // Check if the prefix is used
     if (!oMessage.content.startsWith(m_chPrefix) || oMessage.author.bot) 
         return;
 
-    //
+    //const char for message input
     const chArgs = oMessage.content.slice(m_chPrefix.length).split(/ +/);
 
-    //
+    // const char for command input
     const chCommand = chArgs.shift().toLowerCase();
     
     // try and send a command
@@ -95,7 +95,7 @@ m_oClient.on('message', (oMessage) =>
     {
         // send message to discord chat and log error to console
         oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
-        console.log(`${chCommand}: An invalid command input!`);
+        console.log(`${chCommand} is an Invalid command!`);
     }
 });
 
