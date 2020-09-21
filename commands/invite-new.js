@@ -33,7 +33,7 @@
 module.exports = {
     
     // set name and desciption of command
-    name: 'new-join',
+    name: 'invite-new',
     description: "Send a private message to the new member of the voice channel, mostly used for Among Us invite codes.",
     
     // Execute the command
