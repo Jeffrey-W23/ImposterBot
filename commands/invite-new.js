@@ -57,7 +57,7 @@ module.exports = {
                 
                 // check if the author has a valid channel id and invite code, if not send an error message
                 if (oMessage.member.voice.channelID && chrInviteCode.length <= 0)
-                    oMessage.channel.send(`${oMessage.member} That's an incorrect command input? An invite code is required for the new-join command.`); 
+                    oMessage.channel.send(`${oMessage.member} That's an incorrect command input? An invite code is required for the invite-new command.`); 
                 
                 // check invite code length
                 if (chrInviteCode.length > 0) 
