@@ -1,49 +1,108 @@
+// LICENSE //
+//--------------------------------------------------------------------------------------
+// Copyright 2020 Thomas Wiltshire
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this 
+// software and associated documentation files (the "ImposterBot"), to deal in the Software 
+// without restriction, including without limitation the rights to use, copy, modify, 
+// merge, publish, distribute, sublicense, and/or sell copies of the Software, and to 
+// permit persons to whom the Software is furnished to do so, subject to the following 
+// conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies 
+// or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE 
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, 
+// TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE
+// OR OTHER DEALINGS IN THE SOFTWARE.
+//
+// For more information: https://opensource.org/licenses/mit-license.php
+//--------------------------------------------------------------------------------------
+
+// INFORMATION //
+//--------------------------------------------------------------------------------------
+// Purpose: Main.js used to initiate bot and used as a main hub for all the discord commands.
+//
+// Author: Thomas Wiltshire
+//--------------------------------------------------------------------------------------
+
+// REQUIRES //
+//--------------------------------------------------------------------------------------
+// require dotenv dependencies for bot token input
 require('dotenv').config();
+//--------------------------------------------------------------------------------------
 
-//
-const Discord = require('discord.js');
+// VARIABLES //
+//--------------------------------------------------------------------------------------
+// const discord object for the discord js module
+const m_oDiscord = require('discord.js');
 
-//
-const client = new Discord.Client();
+// const for discord client object
+const m_oClient = new m_oDiscord.Client();
 
-//
-const prefix = '!';
+// const char for command prefix
+const m_chPrefix = '!';
 
-//
-const fs = require('fs');
+// const for the file system object
+const m_oFS = require('fs');
 
-//
-client.commands = new Discord.Collection();
+// Commands array of discord objects, under the client
+m_oClient.aoCommands = new m_oDiscord.Collection();
 
-//
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+// const aaray of files for storing command files
+const m_afCommandFiles = m_oFS.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+//--------------------------------------------------------------------------------------
 
-//
-for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.name, command);
+// loop through files in the command files array
+for (const fFile of m_afCommandFiles)
+{
+    // const for a command file
+    const fCommand = require(`./commands/${fFile}`);
+    
+    // set command files in the discord client collection
+    m_oClient.aoCommands.set(fCommand.name, fCommand);
 }
 
-//
-client.once('ready', () => {
-    console.log('ImposterBot is online!')
-});
+
+
+
+
+
 
 //
-client.on('message', (message) => {
+m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
+
+//
+m_oClient.on('message', (oMessage) => 
+{    
+    //
+    if (!oMessage.content.startsWith(m_chPrefix) || oMessage.author.bot) 
+        return;
+
+    //
+    const chArgs = oMessage.content.slice(m_chPrefix.length).split(/ +/);
+
+    //
+    const chCommand = chArgs.shift().toLowerCase();
     
     //
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
+    try
+    {
+        m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
+        console.log(`${chCommand} command activated!`);
+    }
 
-    //
-    const args = message.content.slice(prefix.length).split(/ +/);
+    catch
+    {
+        console.log(`${chCommand} command activated!`);
+    }
 
-    //
-    const command = args.shift().toLowerCase();
 
-    //
-    if(command === 'hello'){
+/*     //
+    if (command === 'hello'){
         
         //
         client.commands.get('hello').execute(message, args);
@@ -51,7 +110,7 @@ client.on('message', (message) => {
     }
 
     //
-    else if(command === 'suspect'){
+    else if (command === 'suspect'){
         
         //
         client.commands.get('suspect').execute(message, args);
@@ -59,7 +118,7 @@ client.on('message', (message) => {
     }
 
     //
-    else if(command === 'emergency'){
+    else if (command === 'emergency'){
         
         //
         client.commands.get('emergency').execute(message, args);
@@ -75,8 +134,8 @@ client.on('message', (message) => {
             client.commands.get('among-invite').execute(message, args);
         else
             message.channel.send(`${message.member} You don't have permission to use that command?`);
-    }
+    } */
 });
 
 // Must be last line of code. Login into discord bot.
-client.login(process.env.BOT_TOKEN);
+m_oClient.login(process.env.BOT_TOKEN);
