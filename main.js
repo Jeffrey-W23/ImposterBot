@@ -66,12 +66,6 @@ for (const fFile of m_afCommandFiles)
     m_oClient.aoCommands.set(fCommand.name, fCommand);
 }
 
-
-
-
-
-
-
 //
 m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
 
@@ -88,57 +82,21 @@ m_oClient.on('message', (oMessage) =>
     //
     const chCommand = chArgs.shift().toLowerCase();
     
-    //
+    // try and send a command
     try
     {
-        //
+        // Send command to command file and log command activation in the console
         m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
         console.log(`${chCommand} command activated!`);
     }
 
-    //
+    // catch any invalid commands
     catch
     {
-        //
-        message.channel.send(`Invalid command!`);
+        // send message to discord chat and log error to console
+        oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
         console.log(`${chCommand}: An invalid command input!`);
     }
-
-
-/*     //
-    if (command === 'hello'){
-        
-        //
-        client.commands.get('hello').execute(message, args);
-        console.log('hello command activated!')
-    }
-
-    //
-    else if (command === 'suspect'){
-        
-        //
-        client.commands.get('suspect').execute(message, args);
-        console.log('suspect command activated!')
-    }
-
-    //
-    else if (command === 'emergency'){
-        
-        //
-        client.commands.get('emergency').execute(message, args);
-        console.log('emergency command activated!')
-    }
-
-    //
-    else if (command === 'among-invite'){
-
-        console.log('among-invite command activated!')
-
-        if(message.member.roles.cache.some(r => r.name === "Moderator"))
-            client.commands.get('among-invite').execute(message, args);
-        else
-            message.channel.send(`${message.member} You don't have permission to use that command?`);
-    } */
 });
 
 // Must be last line of code. Login into discord bot.
