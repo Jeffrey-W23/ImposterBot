@@ -63,7 +63,7 @@ module.exports = {
                 if (chrInviteCode.length > 0) 
                 {
                     // if the new user is valid and matches the author channel
-                    if (chNewUsrChannel && chNewUsrChannel.channelID === oAuthorChannel) 
+                    if (chNewUsrChannel && chNewUsrChannel.channelID === oAuthorChannel && oAuthorChannel != chNewUsrChannel.channelID)
                     {
                         // send a private message of the invite code to the channel member, put a confirmation in text channel
                         chNewUsrChannel.member.send(chrInviteCode.join(' '));
