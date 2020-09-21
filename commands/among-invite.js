@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'among-invite',
+    name: 'ib-invite',
     description: "Send invite code for Among Us!",
     execute(message, args)
     {

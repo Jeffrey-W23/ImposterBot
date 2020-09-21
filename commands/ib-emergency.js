@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'emergency',
+    name: 'ib-emergency',
     description: "emergency command",
     execute(message, args){
 

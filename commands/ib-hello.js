@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'hello',
+    name: 'ib-hello',
     description: "This is the ping command!",
     execute(message, args){
 

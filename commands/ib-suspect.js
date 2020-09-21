@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'suspect',
+    name: 'ib-suspect',
     description: "suspect command",
     execute(message, args){
 
