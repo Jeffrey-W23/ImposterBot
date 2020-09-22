@@ -44,7 +44,7 @@ const m_oDiscord = require('discord.js');
 const m_oClient = new m_oDiscord.Client();
 
 // const char for command prefix
-const m_chPrefix = '?';
+const m_chPrefix = process.env.BOT_PREFIX;
 
 // const for the file system object
 const m_oFS = require('fs');
