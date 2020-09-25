@@ -52,6 +52,18 @@ module.exports = {
                     // create text fields for all the different bot commands
                     fields: 
                     [
+                        // help new command
+                        {
+                            name: "Help",
+                            value: "?help: List of all available commands for use with the ImpostorBot!\n\u200B"
+                        },
+
+                        // info new command
+                        {
+                            name: "Info",
+                            value: "?info: An about section (Readme) on the ImpostorBot, detailing its purpose, origin and a link to where it can be download/installed.\n\u200B"
+                        },
+
                         // ping command
                         {
                             name: "Ping",
