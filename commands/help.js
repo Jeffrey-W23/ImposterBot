@@ -47,7 +47,7 @@ module.exports = {
                     // set the color, title and description of the embed
                     color: 7261139,
                     title: "ImpostorBot Help",
-                    description: "List of all available commands for use with the ImpostorBot are below!\n\u200B\n\ ",
+                    description: "List of all available commands for use with the ImpostorBot are below! (Some commands require the role of Moderator)\n\u200B\n\ ",
 
                     // create text fields for all the different bot commands
                     fields: 
