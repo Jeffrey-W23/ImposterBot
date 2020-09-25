@@ -114,7 +114,7 @@ m_oClient.on('message', (oMessage) =>
     catch
     {
         // send message to discord chat and log error to console
-        oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
+        //oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
         console.log(`${chCommand} is an Invalid command!`);
     }
 });
