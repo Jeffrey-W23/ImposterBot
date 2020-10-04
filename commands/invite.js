@@ -40,7 +40,7 @@ module.exports = {
     execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
     {
         // check the role of the author, is it moderator?
-        if (oMessage.member.roles.cache.some(r => r.name === "Moderator"))
+        if (oMessage.member.roles.cache.some(r => r.name === "Moderator") || oMessage.member.roles.cache.some(r => r.name === "moderator"))
         {
             // check if the author is currently in a voice channel, if not send an error message
             if (!oMessage.member.voice.channelID)
@@ -100,7 +100,7 @@ module.exports = {
         else
         {
             // send a error message in text channel
-            oMessage.channel.send(`${oMessage.member} You don't have permission to use that command?`);
+            oMessage.channel.send(`${oMessage.member} You don't have permission to use that command? Please ensure you have the Moderator role before using this command!`);
         }
     }
 }
