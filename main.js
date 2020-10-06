@@ -78,15 +78,15 @@ m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
 m_oClient.on('voiceStateUpdate', (oOldMember, oNewMember) => 
 {  
     // send to console that the voice state has changed
-    console.log(`Voice state change dectected!`);
+    //console.log(`Voice state change dectected!`);
     
     // set member vars to voice states
     m_chOldVoiceUser = oOldMember;
     m_chNewVoiceUser = oNewMember;
 
     // send old and new channel ids to the console
-    console.log(`Old Channel ${oOldMember.channelID}`);
-    console.log(`New Channel ${oNewMember.channelID}`);
+    //console.log(`Old Channel ${oOldMember.channelID}`);
+    //console.log(`New Channel ${oNewMember.channelID}`);
 })
 
 // Get command inputs

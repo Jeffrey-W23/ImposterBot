@@ -78,7 +78,7 @@ module.exports = {
 
                         // invite new command
                         {
-                            name: "Invite-New",
+                            name: "Invite-New (WIP, Might have some issues)",
                             value: "?invite-new [INVITE CODE HERE]: Detects the last player to join a voice channel and sends an invite code to the new voice channel member."
                         }
                     ],
