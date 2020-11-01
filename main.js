@@ -117,6 +117,14 @@ m_oClient.on('message', (oMessage) =>
         //oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
         console.log(`${chCommand} is an Invalid command!`);
     }
+
+    // if the invite commands are used
+    if (chCommand == "invite" || chCommand == "invite-new")
+    {
+        // delete the authors message
+        oMessage.member.lastMessage.delete();
+        console.log(`${oMessage} has been deleted!`);
+    }
 });
 
 // Must be last line of code. Login into discord bot.

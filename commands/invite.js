@@ -39,6 +39,9 @@ module.exports = {
     // Execute the command
     execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
     {
+        // send a message to text channel confirming the command activation
+        oMessage.channel.send(`Invite code activated!`);
+
         // check the role of the author, is it moderator?
         if (oMessage.member.roles.cache.some(r => r.name === "Moderator") || oMessage.member.roles.cache.some(r => r.name === "moderator"))
         {
