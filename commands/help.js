@@ -36,7 +36,7 @@ module.exports = {
     description: "List all commands avalible for the bot to the user.",
     
     // Execute the command
-    execute(oMessage, chArgs)
+    execute(oMessage, chArgs, nServerCount)
     {
         // Send a message to the text channel
         oMessage.channel.send(

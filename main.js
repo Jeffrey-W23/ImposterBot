@@ -59,6 +59,8 @@ const m_afCommandFiles = m_oFS.readdirSync('./commands/').filter(file => file.en
 let m_chNewVoiceUser;
 let m_chOldVoiceUser;
 
+// new var for server count
+let m_nServerCount = 0;
 //--------------------------------------------------------------------------------------
 
 // loop through files in the command files array
@@ -71,8 +73,16 @@ for (const fFile of m_afCommandFiles)
     m_oClient.aoCommands.set(fCommand.name, fCommand);
 }
 
-// if the bot is ready console log that it is online
-m_oClient.once('ready', () => {console.log('The ImposterBot is now online!')});
+// if the bot is ready
+m_oClient.once('ready', () => 
+{
+    // console log that it is online and the server counts!
+    console.log('The ImposterBot is now online!')
+    console.log(`Currently active in ${m_oClient.guilds.cache.size} servers!`);
+
+    // update the server count
+    m_nServerCount = m_oClient.guilds.cache.size;
+});
 
 // get voice state chanages 
 m_oClient.on('voiceStateUpdate', (oOldMember, oNewMember) => 
@@ -117,7 +127,7 @@ m_oClient.on('message', (oMessage) =>
         else
         {
             // Send command to command file and log command activation in the console
-            m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
+            m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs, m_nServerCount);
             console.log(`${chCommand} command activated!`);
         }
     }
