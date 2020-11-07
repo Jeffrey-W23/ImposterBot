@@ -105,16 +105,28 @@ m_oClient.on('message', (oMessage) =>
     // try and send a command
     try
     {
-        // Send command to command file and log command activation in the console
-        m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs, m_chNewVoiceUser, m_chOldVoiceUser);
-        console.log(`${chCommand} command activated!`);
+        //
+        if (chCommand == "invite-new")
+        {
+            // Send command to command file and log command activation in the console
+            m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs, m_chNewVoiceUser, m_chOldVoiceUser);
+            console.log(`${chCommand} command activated!`);
+        }
+
+        //
+        else
+        {
+            // Send command to command file and log command activation in the console
+            m_oClient.aoCommands.get(chCommand).execute(oMessage, chArgs);
+            console.log(`${chCommand} command activated!`);
+        }
     }
 
     // catch any invalid commands
     catch
     {
         // send message to discord chat and log error to console
-        //oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
+        oMessage.channel.send(`${oMessage.member} "${chCommand} ${chArgs}" is an Invalid command!`);
         console.log(`${chCommand} is an Invalid command!`);
     }
 

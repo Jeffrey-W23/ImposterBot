@@ -37,7 +37,7 @@ module.exports = {
     description: "Send a private message to all members of a voice channel, mostly used for Among Us invite codes.",
     
     // Execute the command
-    execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
+    execute(oMessage, chArgs)
     {
         // send a message to text channel confirming the command activation
         oMessage.channel.send(`Invite code activated!`);

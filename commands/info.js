@@ -29,6 +29,12 @@
 // Author: Thomas Wiltshire
 //--------------------------------------------------------------------------------------
 
+// const discord object for the discord js module
+const m_oDiscord = require('discord.js');
+
+// const for discord client object
+const m_oClient = new m_oDiscord.Client();
+
 module.exports = {
     
     // set name and desciption of command
@@ -36,8 +42,17 @@ module.exports = {
     description: "Post a message with some basic bot information.",
     
     // Execute the command
-    execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
+    execute(oMessage, chArgs)
     {
+
+
+
+        //
+        let m_nServers = m_oClient.guilds.cache.size + 1;
+
+
+
+
         // Send a message to the text channel
         oMessage.channel.send(
             {
@@ -47,7 +62,7 @@ module.exports = {
                     // set the color, title and description of the embed
                     color: 7261139,
                     title: "ImpostorBot Information",
-                    description: "Originally created for the VeryPoliteGamer community, ImpostorBot is a Discord bot designed to help Twitch streamers easily invite their viewers to play Among Us without sharing the invite code publicly. No need for private messaging or other long manual solutions.\n\u200B\n\ Check it out: [thomaswiltshire.com](https://thomaswiltshire.com/pages/projects.html)\n\u200B\n\ List of all available commands for use with the ImpostorBot are found using the ?help command!",
+                    description: "Originally created for the VeryPoliteGamer community, ImpostorBot is a Discord bot designed to help Twitch streamers easily invite their viewers to play Among Us without sharing the invite code publicly. No need for private messaging or other long manual solutions.\n\u200B\n\ Check it out: [thomaswiltshire.com](https://thomaswiltshire.com/pages/projects.html)\n\u200B\n\ List of all available commands for use with the ImpostorBot are found using the ?help command!\n\u200B\n\ " + "Currently active in " + m_nServers + " servers!",
                     
                     // footer image from the bot website
                     image: 

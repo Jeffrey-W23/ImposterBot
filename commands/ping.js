@@ -36,7 +36,7 @@ module.exports = {
     description: "Ping the bot, good for checking it's status!",
     
     // Execute the command
-    execute(oMessage, chArgs, chNewUsrChannel, chOldUsrChannel)
+    execute(oMessage, chArgs)
     {
         // send message to the server
         oMessage.channel.send(`Pong.`);
