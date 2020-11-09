@@ -102,6 +102,9 @@ m_oClient.on('voiceStateUpdate', (oOldMember, oNewMember) =>
 // Get command inputs
 m_oClient.on('message', (oMessage) => 
 {
+    // update the server count
+    m_nServerCount = m_oClient.guilds.cache.size;
+
     // Check if the prefix is used
     if (!oMessage.content.startsWith(m_chPrefix) || oMessage.author.bot) 
         return;
